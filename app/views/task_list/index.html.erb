@@ -1,0 +1,20 @@
+<h1>TaSkS</h1>
+<p>do stuff</p>
+
+<ul>
+<% 5.times do %>
+<li>Task</li>
+<% end %>
+</ul>
+
+
+<ul>
+<% @task_list.each do |task| %>
+<li>
+<strong>
+<%= task[:day] %>
+</strong>
+by <%=task[:number] %>
+</li>
+<%end%>
+</ul>
