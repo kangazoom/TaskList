@@ -1,6 +1,13 @@
 <h2>Task Details</h2>
-<strong>Day of the Week:</strong>
-<%= @task[:day] %>
 
-<strong>Number of Tasks Due:</strong>
-<%= @task[:number] %>
+
+<h2>Task #<%=@task.id%></h2>
+  <p>
+    name: <%= @task.name %>
+  </p>
+  <p>
+  description: <%= @task.description%>
+  </p>
+  <p>
+    completion_date: <%= @task.completion_date %>
+  </p>

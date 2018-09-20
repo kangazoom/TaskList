@@ -1,19 +1,35 @@
-TASK_LIST = [
-  { day: "Monday", number: "2"},
-  { day: "Tuesday", number: "3"},
-  { day: "Wednesday", number: "4"}
-]
-
-
 class TaskListController < ApplicationController
 
   def index
-    @task_list = TASK_LIST # instance var for controller-model communication
+
+    @task_list = Task.all
+    # @task_list = params # instance var for controller-model communication
   end
 
   def show
-    task_id = params[:id].to_i #<-- always comes in as a string
-    @task = TASK_LIST[task_id]
+    @task = Task.find(params[:id].to_i)
   end
 
+  def new
+    @task= Task.new
+  end
+
+  def create
+    @task = Task.new(
+      name: params[:name],
+      description: params[:description],
+      completion_date: params[:completion_date]
+    )
+
+    is_successful_save = @task.save
+
+    if is_successful_save
+      redirect_to task_list_path
+    else
+      render :new
+
+    end
+
+
+  end
 end

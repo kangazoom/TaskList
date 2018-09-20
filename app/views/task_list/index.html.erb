@@ -1,20 +1,23 @@
 <h1>TaSkS</h1>
 <p>do stuff</p>
 
-<ul>
-<% 5.times do %>
-<li>Task</li>
-<% end %>
-</ul>
-
-
-<ul>
 <% @task_list.each do |task| %>
-<li>
-<strong>
-<%= task[:day] %>
-</strong>
-by <%=task[:number] %>
-</li>
-<%end%>
-</ul>
+<h2><%=task%></h2>
+  <p>
+    name: <%= task.name %>
+  </p>
+  <p>
+  description: <%=task.description%>
+  </p>
+  <p>
+    completion_date: <%= task.completion_date %>
+  </p>
+  <p>
+    <%= link_to "View more info", task_path(task)  %>
+  </p>
+<% end %>
+
+
+<p>
+  <%= link_to "Create a new task", new_task_path %>
+</p>
