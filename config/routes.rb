@@ -8,5 +8,10 @@ Rails.application.routes.draw do
     get '/tasks/:id', to: 'task_list#show', as: 'task'
     get '/tasks/:id/edit', to: 'task_list#edit', as: 'edit_task'
     patch '/tasks/:id', to: 'task_list#update'
+    delete '/tasks/:id', to: 'task_list#destroy'
+
+    get '/tasks/:id/complete', to: 'task_list#complete'
+    get '/tasks/:id/incomplete', to: 'task_list#incomplete'
+
 
   end
