@@ -13,7 +13,8 @@
     completion_date: <%= task.completion_date %>
   </p>
   <p>
-    <%= link_to "View more info", task_path(task)  %>
+    <!-- why does this work without .id and just task??? -->
+    <%= link_to "View more info", task_path(task.id)  %>
   </p>
 <% end %>
 
