@@ -15,11 +15,7 @@ class TaskListController < ApplicationController
   end
 
   def create
-    @task = Task.new(
-      name: params[:task][:name],
-      description: params[:task][:description],
-      completion_date: params[:task][:completion_date]
-    )
+    @task = Task.new(task_params)
 
     is_successful_save = @task.save
 
@@ -45,11 +41,7 @@ class TaskListController < ApplicationController
   def update
     @task = Task.find(params[:id])
 
-      @task.update(
-        name: params[:task][:name],
-        description: params[:task][:description],
-        completion_date: params[:task][:completion_date]
-      )
+      @task.update(task_params)
 
       redirect_to task_path(@task)
 
@@ -65,23 +57,41 @@ class TaskListController < ApplicationController
     else
       return raise ActiveRecord::RecordNotFound, 'Record not found - cannot delete'
     end
+  end
 
+
+# QUESTION: maybe you can call update in the complete/incomplete
 
     def complete
-      @task = Task.find(params[:id])
-      @task.completed = true
-      @task.save
-      redirect_to tasks_path
-    end
-
-    def incomplete
-      @task = Task.find(params[:id])
-      @task.completed = false
-      @task.save
+      @task = Task.find(params[:id].to_i)
+      # @task.completed = true
+      # @task.completion_date = Date.today
+      @task.update(completed: true, completion_date: Date.today)
+      # @task.save
 
       redirect_to tasks_path
     end
 
+    # def incomplete
+    #   @task = Task.find(params[:id])
+    #   @task.completed = false
+    #   # @task.completion_date = Date.tomorrow
+    #   @task.update
+    #
+    #   redirect_to tasks_path
+    # end
 
-  end
+
+    private
+
+    def task_params
+    	return params.require(:task).permit(
+    		:name,
+    		:description,
+    		:completion_date
+    		)
+    end
+
+
+
 end

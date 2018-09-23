@@ -19,7 +19,8 @@
       <%= task.id %>.   <%= link_to task.name, task_path(task.id)  %>
     </p>
     <p>
-      Mark Complete |
+      <%= link_to "Mark Complete", complete_task_path(task.id), method: :patch %>
+ |
       <%= link_to "Edit", edit_task_path(task.id)  %> |
       <%= link_to "Delete", task_path(task.id), method: :delete, data: { confirm: "Are you sure you want to delete task: #{task.name}?" } %>
     </p>
