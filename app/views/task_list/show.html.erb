@@ -1,12 +1,17 @@
 <h2>Task Details</h2>
 
 
-<h2>Task #<%=@task.id%></h2>
+<div class="task-title">
+  <h3>Task #<%=@task.id%></h3>
+</div>
+
+<article>
+
   <p>
     Name: <%= @task.name %>
   </p>
   <p>
-  Description: <%= @task.description%>
+    Description: <%= @task.description%>
   </p>
   <p>
     Completion_date: <%= @task.completion_date %>
@@ -14,10 +19,14 @@
   <p>
     Completed: <%= @task.completed %>
   </p>
+</article>
 
+
+<div class="actions">
   <p>
 
     <%= link_to "Edit entry", edit_task_path(@task.id)  %> |
     <%= link_to "Delete", task_path(@task.id), method: :delete, data: { confirm: "Are you sure you want to delete task: #{@task.name}?" } %>
 
   </p>
+</div>

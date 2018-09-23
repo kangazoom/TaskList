@@ -1,23 +1,16 @@
-<header>
-  <h1>TASKLIST</h1>
-  <nav>
-    <div>
-      <%= link_to "Add Task", new_task_path %>
-    </div>
-    <div>
-      <%= link_to "All Tasks", tasks_path %>
-    </div>
-    <div>
-    </nav>
-  </header>
 
-  <% @task_list.each do |task| %>
   <h2>YOUR TASKS</h2>
+  <% @task_list.each do |task| %>
   <div>
+
+    <div class="task-name">
 
     <p>
       <%= task.id %>.   <%= link_to task.name, task_path(task.id)  %>
     </p>
+
+    </div>
+
     <p>
       <%= link_to "Mark Complete", complete_task_path(task.id), method: :patch %>
  |
