@@ -1,9 +1,7 @@
 class TaskListController < ApplicationController
 
   def index
-
-    @task_list = Task.all
-    # @task_list = params # instance var for controller-model communication
+    @task_list = Task.all.order(:due_date)
   end
 
   def show
@@ -23,7 +21,6 @@ class TaskListController < ApplicationController
       redirect_to tasks_path
     else
       render :new
-
     end
   end
 
@@ -33,19 +30,14 @@ class TaskListController < ApplicationController
     if !@task
       return raise ActiveRecord::RecordNotFound, 'Record not found - cannot edit'
     end
-
-    #TODO: add strong params; book_params
   end
 
-  # TODO: dry this up w new?
   def update
     @task = Task.find(params[:id])
 
-      @task.update(task_params)
+    @task.update(task_params)
 
-      redirect_to task_path(@task)
-
-    # TODO: after strong params (task.id)
+    redirect_to task_path(@task)
   end
 
   def destroy
@@ -59,39 +51,25 @@ class TaskListController < ApplicationController
     end
   end
 
+  def complete
+    @task = Task.find(params[:id].to_i)
 
-# QUESTION: maybe you can call update in the complete/incomplete
-
-    def complete
-      @task = Task.find(params[:id].to_i)
-      # @task.completed = true
-      # @task.completion_date = Date.today
+    if @task.completed == false
       @task.update(completed: true, completion_date: Date.today)
-      # @task.save
-
-      redirect_to tasks_path
+    else
+      @task.update(completed: false, completion_date: nil)
     end
 
-    # def incomplete
-    #   @task = Task.find(params[:id])
-    #   @task.completed = false
-    #   # @task.completion_date = Date.tomorrow
-    #   @task.update
-    #
-    #   redirect_to tasks_path
-    # end
+    redirect_to tasks_path
+  end
 
+  private
 
-    private
-
-    def task_params
-    	return params.require(:task).permit(
-    		:name,
-    		:description,
-    		:completion_date
-    		)
-    end
-
-
-
+  def task_params
+    return params.require(:task).permit(
+      :name,
+      :description,
+      :due_date,
+    )
+  end
 end

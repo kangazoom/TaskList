@@ -1,32 +1,30 @@
 <h2>Task Details</h2>
 
-
-<div class="task-title">
-  <h3>Task #<%=@task.id%></h3>
-</div>
-
 <article>
+  <div class="task-title">
+    <p>
+      Name: <%= @task.name %>
+    </p>
+  </div>
 
-  <p>
-    Name: <%= @task.name %>
-  </p>
   <p>
     Description: <%= @task.description%>
   </p>
   <p>
-    Completion_date: <%= @task.completion_date %>
+    Due Date: <%= @task.due_date %>
   </p>
   <p>
-    Completed: <%= @task.completed %>
+    Completion Date:
+    <% if !@task.completion_date.nil? %>
+    <%= @task.completion_date %>
+    <%else%> Not Yet Completed
+    <% end %>
   </p>
 </article>
 
-
 <div class="actions">
   <p>
-
     <%= link_to "Edit entry", edit_task_path(@task.id)  %> |
     <%= link_to "Delete", task_path(@task.id), method: :delete, data: { confirm: "Are you sure you want to delete task: #{@task.name}?" } %>
-
   </p>
 </div>

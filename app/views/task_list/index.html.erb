@@ -1,27 +1,51 @@
+<!-- TODO: add "none" if no tasks / show heading? -->
 
-  <h2>YOUR TASKS</h2>
+<h2>YOUR TASKS</h2>
+
+<h3>TO COMPLETE</h3>
+
+<ol>
   <% @task_list.each do |task| %>
-  <div>
 
+  <% if task.completed==false %>
+  <li>
     <div class="task-name">
-
-    <p>
-      <%= task.id %>.   <%= link_to task.name, task_path(task.id)  %>
-    </p>
-
+      <p>
+        <%= link_to task.name, task_path(task.id)  %>
+      </p>
     </div>
-
     <p>
       <%= link_to "Mark Complete", complete_task_path(task.id), method: :patch %>
- |
+      |
       <%= link_to "Edit", edit_task_path(task.id)  %> |
       <%= link_to "Delete", task_path(task.id), method: :delete, data: { confirm: "Are you sure you want to delete task: #{task.name}?" } %>
     </p>
+  </li>
+  <% end %>
+  <% end %>
+</ol>
 
+<h3>COMPLETED</h3>
+<ol>
+  <% @task_list.each do |task| %>
+  <% if task.completed==true %>
+  <div class="completed">
+    <li>
+      <div class="task-name">
+        <p>
+          <%= link_to task.name, task_path(task.id)  %>
+        </p>
 
-    <p>
-      <!-- why does this work without .id and just task??? -->
+      </div>
 
-    </p>
+      <p>
+        <%= link_to "Mark Incomplete", complete_task_path(task.id), method: :patch %>
+        |
+        <%= link_to "Edit", edit_task_path(task.id)  %> |
+        <%= link_to "Delete", task_path(task.id), method: :delete, data: { confirm: "Are you sure you want to delete task: #{task.name}?" } %>
+      </p>
+    </li>
   </div>
   <% end %>
+  <% end %>
+</ol>
